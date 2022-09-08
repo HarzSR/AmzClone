@@ -82,7 +82,7 @@
 
 			target[fragments[fragments.length - 1]] = modules[id];
 		}
-		
+
 		// Expose private modules for unit tests
 		if (exports.AMDLC_TESTS) {
 			privateModules = exports.privateModules || {};
@@ -26997,8 +26997,8 @@ define("tinymce/ui/Control", [
 		},
 
 		/**
-		 * Initializes the current controls layout rect.
-		 * This will be executed by the layout managers to determine the
+		 * Initializes the current controls layouts rect.
+		 * This will be executed by the layouts managers to determine the
 		 * default minWidth/minHeight etc.
 		 *
 		 * @method initLayoutRect
@@ -27034,7 +27034,7 @@ define("tinymce/ui/Control", [
 			var maxW = settings.maxWidth || 0xFFFF;
 			var maxH = settings.maxHeight || 0xFFFF;
 
-			// Setup initial layout rect
+			// Setup initial layouts rect
 			self._layoutRect = layoutRect = {
 				x: settings.x || 0,
 				y: settings.y || 0,
@@ -27062,16 +27062,16 @@ define("tinymce/ui/Control", [
 		},
 
 		/**
-		 * Getter/setter for the current layout rect.
+		 * Getter/setter for the current layouts rect.
 		 *
 		 * @method layoutRect
-		 * @param {Object} [newRect] Optional new layout rect.
+		 * @param {Object} [newRect] Optional new layouts rect.
 		 * @return {tinymce.ui.Control/Object} Current control or rect object.
 		 */
 		layoutRect: function(newRect) {
 			var self = this, curRect = self._layoutRect, lastLayoutRect, size, deltaWidth, deltaHeight, undef, repaintControls;
 
-			// Initialize default layout rect
+			// Initialize default layouts rect
 			if (!curRect) {
 				curRect = self.initLayoutRect();
 			}
@@ -27148,7 +27148,7 @@ define("tinymce/ui/Control", [
 					curRect.contentH = newRect.contentH;
 				}
 
-				// Compare last layout rect with the current one to see if we need to repaint or not
+				// Compare last layouts rect with the current one to see if we need to repaint or not
 				lastLayoutRect = self._lastLayoutRect;
 				if (lastLayoutRect.x !== curRect.x || lastLayoutRect.y !== curRect.y ||
 					lastLayoutRect.w !== curRect.w || lastLayoutRect.h !== curRect.h) {
@@ -27174,7 +27174,7 @@ define("tinymce/ui/Control", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -27247,7 +27247,7 @@ define("tinymce/ui/Control", [
 		},
 
 		/**
-		 * Updates the controls layout rect by re-measuing it.
+		 * Updates the controls layouts rect by re-measuing it.
 		 */
 		updateLayoutRect: function() {
 			var self = this;
@@ -27848,7 +27848,7 @@ define("tinymce/ui/Control", [
 		/**
 		 * Reflows the current control and it's parents.
 		 * This should be used after you for example append children to the current control so
-		 * that the layout managers know that they need to reposition everything.
+		 * that the layouts managers know that they need to reposition everything.
 		 *
 		 * @example
 		 * container.append({type: 'button', text: 'My button'}).reflow();
@@ -28678,7 +28678,7 @@ define("tinymce/ui/Container", [
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
 		 * @setting {Array} items Items to add to container in JSON format or control instances.
-		 * @setting {String} layout Layout manager by name to use.
+		 * @setting {String} layouts Layout manager by name to use.
 		 * @setting {Object} defaults Default settings to apply to all items.
 		 */
 		init: function(settings) {
@@ -29071,8 +29071,8 @@ define("tinymce/ui/Container", [
 		},
 
 		/**
-		 * Initializes the current controls layout rect.
-		 * This will be executed by the layout managers to determine the
+		 * Initializes the current controls layouts rect.
+		 * This will be executed by the layouts managers to determine the
 		 * default minWidth/minHeight etc.
 		 *
 		 * @method initLayoutRect
@@ -29081,7 +29081,7 @@ define("tinymce/ui/Container", [
 		initLayoutRect: function() {
 			var self = this, layoutRect = self._super();
 
-			// Recalc container size by asking layout manager
+			// Recalc container size by asking layouts manager
 			self._layout.recalc(self);
 
 			return layoutRect;
@@ -29107,7 +29107,7 @@ define("tinymce/ui/Container", [
 		/**
 		 * Reflows the current container and it's children and possible parents.
 		 * This should be used after you for example append children to the current control so
-		 * that the layout managers know that they need to reposition everything.
+		 * that the layouts managers know that they need to reposition everything.
 		 *
 		 * @example
 		 * container.append({type: 'button', text: 'My button'}).reflow();
@@ -30420,8 +30420,8 @@ define("tinymce/ui/Window", [
 		},
 
 		/**
-		 * Initializes the current controls layout rect.
-		 * This will be executed by the layout managers to determine the
+		 * Initializes the current controls layouts rect.
+		 * This will be executed by the layouts managers to determine the
 		 * default minWidth/minHeight etc.
 		 *
 		 * @method initLayoutRect
@@ -30525,7 +30525,7 @@ define("tinymce/ui/Window", [
 					var time;
 
 					if (self._fullscreen) {
-						// Time the layout time if it's to slow use a timeout to not hog the CPU
+						// Time the layouts time if it's to slow use a timeout to not hog the CPU
 						if (!slowRendering) {
 							time = new Date().getTime();
 
@@ -31218,7 +31218,7 @@ define("tinymce/ui/Tooltip", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -31613,7 +31613,7 @@ define("tinymce/ui/Notification", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -40935,7 +40935,7 @@ define("tinymce/Compat", [
  */
 
 /**
- * Base layout manager class.
+ * Base layouts manager class.
  *
  * @class tinymce.ui.Layout
  */
@@ -40952,7 +40952,7 @@ define("tinymce/ui/Layout", [
 		},
 
 		/**
-		 * Constructs a layout instance with the specified settings.
+		 * Constructs a layouts instance with the specified settings.
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
@@ -40962,7 +40962,7 @@ define("tinymce/ui/Layout", [
 		},
 
 		/**
-		 * This method gets invoked before the layout renders the controls.
+		 * This method gets invoked before the layouts renders the controls.
 		 *
 		 * @method preRender
 		 * @param {tinymce.ui.Container} container Container instance to preRender.
@@ -40972,7 +40972,7 @@ define("tinymce/ui/Layout", [
 		},
 
 		/**
-		 * Applies layout classes to the container.
+		 * Applies layouts classes to the container.
 		 *
 		 * @private
 		 */
@@ -41004,7 +41004,7 @@ define("tinymce/ui/Layout", [
 		},
 
 		/**
-		 * Renders the specified container and any layout specific HTML.
+		 * Renders the specified container and any layouts specific HTML.
 		 *
 		 * @method renderHtml
 		 * @param {tinymce.ui.Container} container Container to render HTML for.
@@ -41031,7 +41031,7 @@ define("tinymce/ui/Layout", [
 		},
 
 		/**
-		 * This method gets invoked after the layout renders the controls.
+		 * This method gets invoked after the layouts renders the controls.
 		 *
 		 * @method postRender
 		 * @param {tinymce.ui.Container} container Container instance to postRender.
@@ -41058,7 +41058,7 @@ define("tinymce/ui/Layout", [
  */
 
 /**
- * LayoutManager for absolute positioning. This layout manager is more of
+ * LayoutManager for absolute positioning. This layouts manager is more of
  * a base class for other layouts but can be created and used directly.
  *
  * @-x-less AbsoluteLayout.less
@@ -41072,8 +41072,8 @@ define("tinymce/ui/AbsoluteLayout", [
 
 	return Layout.extend({
 		Defaults: {
-			containerClass: 'abs-layout',
-			controlClass: 'abs-layout-item'
+			containerClass: 'abs-layouts',
+			controlClass: 'abs-layouts-item'
 		},
 
 		/**
@@ -41100,7 +41100,7 @@ define("tinymce/ui/AbsoluteLayout", [
 		},
 
 		/**
-		 * Renders the specified container and any layout specific HTML.
+		 * Renders the specified container and any layouts specific HTML.
 		 *
 		 * @method renderHtml
 		 * @param {tinymce.ui.Container} container Container to render HTML for.
@@ -41205,7 +41205,7 @@ define("tinymce/ui/Button", [
 		},
 
 		/**
-		 * Repaints the button for example after it's been resizes by a layout engine.
+		 * Repaints the button for example after it's been resizes by a layouts engine.
 		 *
 		 * @method repaint
 		 */
@@ -41707,7 +41707,7 @@ define("tinymce/ui/ComboBox", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -41965,7 +41965,7 @@ define("tinymce/ui/PanelButton", [
 			if (!self.panel) {
 				var panelSettings = settings.panel;
 
-				// Wrap panel in grid layout if type if specified
+				// Wrap panel in grid layouts if type if specified
 				// This makes it possible to add forms or other containers directly in the panel option
 				if (panelSettings.type) {
 					panelSettings = {
@@ -43211,7 +43211,7 @@ define("tinymce/ui/FilePicker", [
  */
 
 /**
- * This layout manager will resize the control to be the size of it's parent container.
+ * This layouts manager will resize the control to be the size of it's parent container.
  * In other words width: 100% and height: 100%.
  *
  * @-x-less FitLayout.less
@@ -43262,7 +43262,7 @@ define("tinymce/ui/FitLayout", [
  */
 
 /**
- * This layout manager works similar to the CSS flex box.
+ * This layouts manager works similar to the CSS flex box.
  *
  * @setting {String} direction row|row-reverse|column|column-reverse
  * @setting {Number} flex A positive-number to flex by.
@@ -43432,7 +43432,7 @@ define("tinymce/ui/FlexLayout", [
 				}
 			}
 
-			// Setup new ratio, target layout rect, start position
+			// Setup new ratio, target layouts rect, start position
 			ratio = availableSpace / totalFlex;
 			pos = contPaddingBox[beforeName];
 			rect = {};
@@ -43455,7 +43455,7 @@ define("tinymce/ui/FlexLayout", [
 				}
 			}
 
-			// Default aligning (start) the other ones needs to be calculated while doing the layout
+			// Default aligning (start) the other ones needs to be calculated while doing the layouts
 			rect[alignAxisName] = contPaddingBox[alignBeforeName];
 
 			// Start laying out controls
@@ -43511,7 +43511,7 @@ define("tinymce/ui/FlexLayout", [
  */
 
 /**
- * This layout manager will place the controls by using the browsers native layout.
+ * This layouts manager will place the controls by using the browsers native layouts.
  *
  * @-x-less FlowLayout.less
  * @class tinymce.ui.FlowLayout
@@ -43522,8 +43522,8 @@ define("tinymce/ui/FlowLayout", [
 ], function(Layout) {
 	return Layout.extend({
 		Defaults: {
-			containerClass: 'flow-layout',
-			controlClass: 'flow-layout-item',
+			containerClass: 'flow-layouts',
+			controlClass: 'flow-layouts-item',
 			endClass: 'break'
 		},
 
@@ -44098,7 +44098,7 @@ define("tinymce/ui/FormatControls", [
  */
 
 /**
- * This layout manager places controls in a grid.
+ * This layouts manager places controls in a grid.
  *
  * @setting {Number} spacing Spacing between controls.
  * @setting {Number} spacingH Horizontal spacing between controls.
@@ -44128,7 +44128,7 @@ define("tinymce/ui/GridLayout", [
 				ctrlLayoutRect, ctrl, x, y, posX, posY, ctrlSettings, contPaddingBox, align, spacingH, spacingV, alignH, alignV, maxX, maxY,
 				colWidths = [], rowHeights = [], ctrlMinWidth, ctrlMinHeight, availableWidth, availableHeight, reverseRows, idx;
 
-			// Get layout settings
+			// Get layouts settings
 			settings = container.settings;
 			items = container.items().filter(':visible');
 			contLayoutRect = container.layoutRect();
@@ -44556,8 +44556,8 @@ define("tinymce/ui/Label", [
 		},
 
 		/**
-		 * Initializes the current controls layout rect.
-		 * This will be executed by the layout managers to determine the
+		 * Initializes the current controls layouts rect.
+		 * This will be executed by the layouts managers to determine the
 		 * default minWidth/minHeight etc.
 		 *
 		 * @method initLayoutRect
@@ -44583,7 +44583,7 @@ define("tinymce/ui/Label", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -45515,7 +45515,7 @@ define("tinymce/ui/Menu", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -46338,7 +46338,7 @@ define("tinymce/ui/SplitButton", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */
@@ -46469,7 +46469,7 @@ define("tinymce/ui/SplitButton", [
  */
 
 /**
- * This layout uses the browsers layout when the items are blocks.
+ * This layouts uses the browsers layouts when the items are blocks.
  *
  * @-x-less StackLayout.less
  * @class tinymce.ui.StackLayout
@@ -46482,8 +46482,8 @@ define("tinymce/ui/StackLayout", [
 
 	return FlowLayout.extend({
 		Defaults: {
-			containerClass: 'stack-layout',
-			controlClass: 'stack-layout-item',
+			containerClass: 'stack-layouts',
+			controlClass: 'stack-layouts-item',
 			endClass: 'break'
 		},
 
@@ -46627,8 +46627,8 @@ define("tinymce/ui/TabPanel", [
 		},
 
 		/**
-		 * Initializes the current controls layout rect.
-		 * This will be executed by the layout managers to determine the
+		 * Initializes the current controls layouts rect.
+		 * This will be executed by the layouts managers to determine the
 		 * default minWidth/minHeight etc.
 		 *
 		 * @method initLayoutRect
@@ -46744,7 +46744,7 @@ define("tinymce/ui/TextBox", [
 		},
 
 		/**
-		 * Repaints the control after a layout operation.
+		 * Repaints the control after a layouts operation.
 		 *
 		 * @method repaint
 		 */

@@ -735,7 +735,7 @@ tinymce.ThemeManager.add('modern', function(editor) {
 
 			// Add statusbar
 			/*if (settings.statusbar !== false) {
-				panel.add({type: 'panel', classes: 'statusbar', layout: 'flow', border: '1 0 0 0', items: [
+				panel.add({type: 'panel', classes: 'statusbar', layouts: 'flow', border: '1 0 0 0', items: [
 					{type: 'elementpath'}
 				]});
 			}*/
@@ -806,7 +806,7 @@ tinymce.ThemeManager.add('modern', function(editor) {
 			tinymce.DOM.styleSheetLoader.load(args.skinUiCss, fireSkinLoaded(editor));
 		}
 
-		// Basic UI layout
+		// Basic UI layouts
 		panel = self.panel = Factory.create({
 			type: 'panel',
 			role: 'application',
