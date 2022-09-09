@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,7 @@ require __DIR__.'/auth.php';
 
 // Admin Routes
 
-Route::get('admin/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
+Route::prefix('/admin')->group(function () {
+    Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login']);
+    Route::get('dashboard', [AdminController::class, 'dashboard']);
+});

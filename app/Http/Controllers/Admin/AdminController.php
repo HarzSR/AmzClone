@@ -103,4 +103,17 @@ class AdminController extends Controller
 
         return view('admin.dashboard');
     }
+
+    /**
+     * Display login.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
+    public function login()
+    {
+        //
+
+        return view('admin.login');
+    }
 }
