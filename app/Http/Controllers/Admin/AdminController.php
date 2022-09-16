@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin\Admin;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -110,9 +111,15 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
-    public function login()
+    public function login(Request $request)
     {
         //
+
+        if($request->isMethod('POST'))
+        {
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
 
         return view('admin.login');
     }
