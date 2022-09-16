@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -108,7 +109,7 @@ class AdminController extends Controller
     /**
      * Display login.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
 
     public function login(Request $request)
@@ -118,8 +119,29 @@ class AdminController extends Controller
         if($request->isMethod('POST'))
         {
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+
+            if(Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'], 'status' => 1]))
+            {
+                return redirect('/admin/dashboard');
+            }
+            else
+            {
+                return redirect()->back()->with('error_message', 'Invalid Email or Password');
+            }
         }
+
+        return view('admin.login');
+    }
+
+    /**
+     * Logout Functionality
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
 
         return view('admin.login');
     }

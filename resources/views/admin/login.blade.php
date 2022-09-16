@@ -6,7 +6,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
         <!-- Favicon-->
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ url('admin/images/favicon.ico') }}" type="image/x-icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -33,6 +33,12 @@
             </div>
             <div class="card">
                 <div class="body">
+                    @if(\Illuminate\Support\Facades\Session::has('error_message'))
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error: </strong> {{ \Illuminate\Support\Facades\Session::get('error_message') }}
+                        </div>
+                    @endif
                     <form id="sign_in" name="sign_in" method="POST" action="{{ url('/admin/login') }}">
                         @csrf
                         <div class="msg">Sign in to start your session</div>
@@ -56,7 +62,7 @@
                             <div class="col-xs-3">
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                                <button class="btn btn-block bg-pink waves-effect" type="submit" name="submit" id="submit">SIGN IN</button>
                             </div>
                             <div class="col-xs-3">
                             </div>
