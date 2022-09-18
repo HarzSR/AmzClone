@@ -39,6 +39,16 @@
                             <strong>Error: </strong> {{ \Illuminate\Support\Facades\Session::get('error_message') }}
                         </div>
                     @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error: </strong>
+                            <br>
+                            @foreach($errors->all() as $error)
+                                &emsp; &#x2022; {{ $error }}<br>
+                            @endforeach
+                        </div>
+                    @endif
                     <form id="sign_in" name="sign_in" method="POST" action="{{ url('/admin/login') }}">
                         @csrf
                         <div class="msg">Sign in to start your session</div>
@@ -47,7 +57,7 @@
                                     <i class="material-icons">email</i>
                                 </span>
                             <div class="form-line">
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" required autofocus>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
                             </div>
                         </div>
                         <div class="input-group">
