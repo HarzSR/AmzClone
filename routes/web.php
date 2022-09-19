@@ -29,10 +29,10 @@ require __DIR__.'/auth.php';
 // Admin Routes
 
 Route::prefix('/admin')->group(function () {
-    Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login']);
+    Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('Sign In');
 
     Route::group(['middleware' => ['admin']], function() {
-        Route::get('dashboard', [AdminController::class, 'dashboard']);
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('Dashboard');
         Route::get('logout', [AdminController::class, 'logout']);
     });
 

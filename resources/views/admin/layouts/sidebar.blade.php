@@ -4,11 +4,11 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="image">
-                <img src="images/user.png" width="48" height="48" alt="User" />
+                <img src="@if(!empty(Auth::guard('admin')->user()->image)) {{ asset('/images/admin_images/' . Auth::guard('admin')->user()->image) }} @else images/user.png  @endif" width="48" height="48" alt="User" />
             </div>
             <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                <div class="email">john.doe@example.com</div>
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ ucwords(Auth::guard('admin')->user()->name) }}</div>
+                <div class="email">{{ Auth::guard('admin')->user()->email }}</div>
                 <div class="btn-group user-helper-dropdown">
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                     <ul class="dropdown-menu pull-right">
