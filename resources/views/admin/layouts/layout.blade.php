@@ -39,7 +39,7 @@
         <div class="page-loader-wrapper">
             <div class="loader">
                 <div class="preloader">
-                    <div class="spinner-layer pl-red">
+                    <div class="spinner-layer pl-black">
                         <div class="circle-clipper left">
                             <div class="circle"></div>
                         </div>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <p>Please wait...</p>
+                <p>Hang Tight... We are loading...</p>
             </div>
         </div>
     <!-- #END# Page Loader -->
@@ -74,8 +74,6 @@
         <section>
 
             @include('admin.layouts.sidebar')
-
-            @include('admin.layouts.footer')
 
         </section>
 
@@ -122,6 +120,27 @@
 
         <!-- Demo Js -->
         <script src="{{ url('admin/js/demo.js') }}"></script>
+
+        <script type="text/javascript">
+            function showTime() {
+                var date = new Date(),
+                    utc = new Date(Date.now());
+                const options = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    timeZone: 'Pacific/Auckland',
+                };
+
+                document.getElementById('time').innerHTML = utc.toLocaleString('en-NZ', options).replace("am", "AM").replace("pm","PM");
+            }
+
+            setInterval(showTime, 1000);
+        </script>
     </body>
 
 </html>

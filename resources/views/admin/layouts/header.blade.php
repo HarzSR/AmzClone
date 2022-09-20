@@ -6,6 +6,11 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">ADMIN PANEL</a>
             </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="pull-right"><a class="js-right-sidebar" data-close="true"><div id="time"></div></a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 <!-- #Top Bar -->

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -103,6 +104,8 @@ class AdminController extends Controller
     {
         //
 
+        Session::put('page', 'dashboard');
+
         return view('admin.dashboard');
     }
 
@@ -157,6 +160,17 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return view('admin.login');
+        Session::flush();
+
+        return redirect('/admin/login');
+    }
+
+    public function updateAdminPassword(Request $request)
+    {
+        Session::put('page', 'adminPasswordUpdate');
+
+        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+
+        return view('admin.settings.update_admin_password')->with(compact('userDetails'));
     }
 }
