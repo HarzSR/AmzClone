@@ -51,28 +51,31 @@
                                     <label for="password">Current Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="current_password" name="current_password" class="form-control" placeholder="Enter Current Password" required>
+                                            <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Enter Current Password" required>
                                         </div>
+                                        <div class="help-info" id="currentPassError" name="currentPassError"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="password">New Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="new_password" name="new_password" class="form-control" placeholder="Enter New Password" required>
+                                            <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Enter New Password" required>
                                         </div>
+                                        <div class="help-info" id="newPassError" name="newPassError"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="password">Repeat New Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="repeat_password" name="repeat_password" class="form-control" placeholder="Repeat New Password" required>
+                                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Repeat New Password" required>
                                         </div>
+                                        <div class="help-info" id="confirmPassError" name="confirmPassError"></div>
                                     </div>
                                 </div>
                                 <br>
-                                <button type="button" class="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                                <button type="button" class="btn btn-success m-t-15 waves-effect" id="passUpdate" name="passUpdate">UPDATE</button>
                             </form>
                         </div>
                     </div>

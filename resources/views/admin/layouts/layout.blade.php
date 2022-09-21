@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>AmzClone | {{ \Request::route()->getName() }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon-->
     <link rel="icon" href="{{ url('admin/images/favicon.ico') }}" type="image/x-icon">
 
@@ -130,9 +132,9 @@
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    second: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
                     timeZone: 'Pacific/Auckland',
                 };
 
@@ -141,6 +143,9 @@
 
             setInterval(showTime, 1000);
         </script>
+
+        <script src="{{ url('admin/js/custom.js') }}"></script>
+
     </body>
 
 </html>

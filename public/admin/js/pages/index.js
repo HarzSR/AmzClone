@@ -9,9 +9,14 @@
         }
     });
 
-    initRealTimeChart();
-    initDonutChart();
-    initSparkline();
+    var pageCheck = ((window.location.pathname).split("/").pop());
+
+    if(pageCheck === 'dashboard')
+    {
+        initRealTimeChart();
+        initDonutChart();
+        initSparkline();
+    }
 });
 
 var realtime = 'on';

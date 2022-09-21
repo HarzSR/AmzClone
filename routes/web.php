@@ -37,6 +37,7 @@ Route::prefix('/admin')->group(function () {
 
         Route::match(['GET', 'POST'], 'admin-password', [AdminController::class, 'updateAdminPassword'])->name('Update Admin Password');
         Route::match(['GET', 'POST'], 'admin-details', [AdminController::class, 'updateAdminDetails'])->name('Update Admin Details');
+        Route::post('check-current-password', [AdminController::class, 'checkCurrentPassword']);
     });
 
 });

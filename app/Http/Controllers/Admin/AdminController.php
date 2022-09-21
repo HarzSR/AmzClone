@@ -9,6 +9,7 @@ use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -165,6 +166,13 @@ class AdminController extends Controller
         return redirect('/admin/login');
     }
 
+    /**
+     * Update Admin Password Page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
     public function updateAdminPassword(Request $request)
     {
         Session::put('page', 'adminPasswordUpdate');
@@ -172,5 +180,26 @@ class AdminController extends Controller
         $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
         return view('admin.settings.update_admin_password')->with(compact('userDetails'));
+    }
+
+    /**
+     * Check User Password
+     *
+     * @param Request $request
+     * @return void
+     */
+
+    public function checkCurrentPassword(Request $request)
+    {
+        $data = $request->all();
+
+        if (Hash::check($data['current_password'], Auth::guard('admin')->user()->password))
+        {
+            echo 'True';
+        }
+        else
+        {
+            echo 'False';
+        }
     }
 }
