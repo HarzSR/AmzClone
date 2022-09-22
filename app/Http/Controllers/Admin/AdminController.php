@@ -170,12 +170,55 @@ class AdminController extends Controller
      * Update Admin Password Page
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
 
     public function updateAdminPassword(Request $request)
     {
         Session::put('page', 'adminPasswordUpdate');
+
+        if($request->isMethod('POST'))
+        {
+            $data = $request->all();
+
+            $rules = [
+                'current_password' => 'required|min:8',
+                'new_password' => 'required|min:8',
+                'confirm_password' => 'required|min:8',
+            ];
+            $customMessages = [
+                'current_password.required' => 'Current password is required',
+                'current_password.min' => 'The current password is incorrect and short.',
+                'new_password.required' => 'New password is required',
+                'new_password.min' => 'The new password is incorrect and short.',
+                'confirm_password.required' => 'Confirm password is required',
+                'confirm_password.min' => 'The confirm password is incorrect and short.',
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+            if (Hash::check($data['current_password'], Auth::guard('admin')->user()->password))
+            {
+                if ($data['current_password'] == $data['new_password'])
+                {
+                    return redirect()->back()->with('error_message', 'New password can\'t be the same as current password');
+                }
+                else if ($data['new_password'] != $data['confirm_password'])
+                {
+                    return redirect()->back()->with('error_message', 'New password and Cofirm password are not same');
+                }
+                else
+                {
+                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['password' => bcrypt($data['new_password'])]);
+                    
+                    return redirect()->back()->with('success_message', 'Password update Successful');
+                }
+            }
+            else
+            {
+                return redirect()->back()->with('error_message', 'Current password is Incorrect');
+            }
+        }
 
         $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
