@@ -29,7 +29,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li @if(Session::get('page') == "adminPasswordUpdate") class="active" @endif >
+                <li @if(Session::get('page') == "adminPasswordUpdate" || Session::get('page') == 'adminDetailsUpdate') class="active" @endif >
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">settings</i>
                         <span>Admin Settings</span>
@@ -38,7 +38,7 @@
                         <li @if(Session::get('page') == "adminPasswordUpdate") class="active" @endif >
                             <a href="{{ url('/admin/admin-password') }}">Admin Password</a>
                         </li>
-                        <li>
+                        <li @if(Session::get('page') == "adminDetailsUpdate") class="active" @endif>
                             <a href="{{ url('/admin/admin-details') }}">Admin Details</a>
                         </li>
                     </ul>

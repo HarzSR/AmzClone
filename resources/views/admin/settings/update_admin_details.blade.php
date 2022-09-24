@@ -37,11 +37,11 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                UPDATE ADMIN PASSWORD
+                                UPDATE ADMIN DETAILS
                             </h2>
                         </div>
                         <div class="body">
-                            <form action="{{ url('/admin/admin-password') }}" method="POST" id="updateAdminPassword" name="updateAdminPassword">
+                            <form action="{{ url('/admin/admin-details') }}" method="POST" id="updateAdminDetails" name="updateAdminDetails">
                                 @csrf
                                 <div class="col-md-3">
                                     <label for="email_address">Admin Name</label>
@@ -75,35 +75,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="password">Current Password</label>
+                                <div class="col-md-6">
+                                    <label for="password">New Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Enter Current Password" required>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" value="{{ ucwords($userDetails['name']) }}">
                                         </div>
-                                        <div class="help-info" id="currentPassError" name="currentPassError"></div>
+                                        <div class="help-info" id="newNameError" name="newNameError"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="password">New Password</label>
+                                <div class="col-md-6">
+                                    <label for="password">New Mobile</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Enter New Password" required>
+                                            <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" value="{{ ucwords($userDetails['mobile']) }}">
                                         </div>
-                                        <div class="help-info" id="newPassError" name="newPassError"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="password">Repeat New Password</label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Repeat New Password" required>
-                                        </div>
-                                        <div class="help-info" id="confirmPassError" name="confirmPassError"></div>
+                                        <div class="help-info" id="newNumberError" name="newNumberError"></div>
                                     </div>
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-success m-t-15 waves-effect" id="passUpdate" name="passUpdate">UPDATE</button>
+                                <button type="submit" class="btn btn-success m-t-15 waves-effect" id="detailUpdate" name="detailUpdate">UPDATE</button>
                             </form>
                         </div>
                     </div>

@@ -210,7 +210,7 @@ class AdminController extends Controller
                 else
                 {
                     Admin::where('id', Auth::guard('admin')->user()->id)->update(['password' => bcrypt($data['new_password'])]);
-                    
+
                     return redirect()->back()->with('success_message', 'Password update Successful');
                 }
             }
@@ -244,5 +244,78 @@ class AdminController extends Controller
         {
             echo 'False';
         }
+    }
+
+    public function updateAdminDetails(Request $request)
+    {
+        Session::put('page', 'adminDetailsUpdate');
+
+        if($request->isMethod('POST'))
+        {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'nullable|min:3|regex:/^[-_ a-zA-Z0-9]+$/',
+                'number' => 'nullable|min:8|regex:/^([0-9\s\-\+\(\)]*)$/',
+            ];
+            $customMessages = [
+                'name.min' => 'The name is too short.',
+                'name.regex' => 'The name has unauthorised characters.',
+                'number.min' => 'The number is too short.',
+                'number.regex' => 'The number is in invalid format.',
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+            if ($data['name'] == "" && $data['number'] == "")
+            {
+                return redirect()->back()->with('success_message', 'No updates were made');
+            }
+            else if ($data['name'] != '' && $data['number'] == '')
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
+
+                return redirect()->back()->with('success_message', 'User name is updated');
+            }
+            else if ($data['name'] == '' && $data['number'] != '')
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
+
+                return redirect()->back()->with('success_message', 'User number is updated');
+            }
+            else if ($data['name'] != '' && $data['number'] != '')
+            {
+                if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
+                {
+                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number']]);
+
+                    return redirect()->back()->with('success_message', 'User details updated');
+                }
+                else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
+                {
+                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
+
+                    return redirect()->back()->with('success_message', 'User number is updated');
+                }
+                else if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
+                {
+                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
+
+                    return redirect()->back()->with('success_message', 'User name is updated');
+                }
+                else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
+                {
+                    return redirect()->back()->with('success_message', 'No updates were made');
+                }
+            }
+            else
+            {
+                return redirect()->back()->with('error_message', 'Invalid data, please try again');
+            }
+        }
+
+        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+
+        return view('admin.settings.update_admin_details')->with(compact('userDetails'));
     }
 }
