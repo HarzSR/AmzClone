@@ -32,17 +32,39 @@
                 </div>
             </div>
 
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                UPDATE ADMIN DETAILS
-                            </h2>
+            <form action="{{ url('/admin/admin-details') }}" method="POST" id="updateAdminDetails" name="updateAdminDetails" enctype="multipart/form-data">
+                @csrf
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-3">
+                        <div class="card profile-card">
+                            <div class="profile-header">&nbsp;</div>
+                            <div class="profile-body">
+                                <div class="image-area">
+                                    <img src="@if(!empty(Auth::guard('admin')->user()->image)) {{ asset('admin/images/admin_images/' . Auth::guard('admin')->user()->image) }} @else images/user.png  @endif" alt="AdminBSB - Profile Image" width="128px" height="128px"/>
+                                </div>
+                                <div class="content-area">
+                                    <h3>{{ ucwords($userDetails['name']) }}</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="profile-footer">
+                                <label for="email_address">Update Image</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="file" class="form-control" id="adminImage" name="adminImage" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="body">
-                            <form action="{{ url('/admin/admin-details') }}" method="POST" id="updateAdminDetails" name="updateAdminDetails">
-                                @csrf
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    UPDATE ADMIN DETAILS
+                                </h2>
+                            </div>
+                            <div class="body">
                                 <div class="col-md-3">
                                     <label for="email_address">Admin Name</label>
                                     <div class="form-group">
@@ -95,12 +117,11 @@
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-success m-t-15 waves-effect" id="detailUpdate" name="detailUpdate">UPDATE</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </form>
         </div>
     </section>
 
