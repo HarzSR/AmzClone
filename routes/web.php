@@ -29,6 +29,7 @@ require __DIR__.'/auth.php';
 // Admin Routes
 
 Route::prefix('/admin')->group(function () {
+    Route::get('/', [AdminController::class, 'login'])->name('Sign In');
     Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('Sign In');
 
     Route::group(['middleware' => ['admin']], function() {
@@ -38,6 +39,8 @@ Route::prefix('/admin')->group(function () {
         Route::match(['GET', 'POST'], 'admin-password', [AdminController::class, 'updateAdminPassword'])->name('Update Admin Password');
         Route::match(['GET', 'POST'], 'admin-details', [AdminController::class, 'updateAdminDetails'])->name('Update Admin Details');
         Route::post('check-current-password', [AdminController::class, 'checkCurrentPassword']);
+        Route::get('delete-notes', [AdminController::class, 'deleteNotes']);
+        Route::get('delete-admin-image', [AdminController::class, 'deleteAdminImage']);
     });
 
 });

@@ -46,6 +46,11 @@
                                     <h3>{{ ucwords($userDetails['name']) }}</h3>
                                     <p></p>
                                 </div>
+                                @if(!empty(Auth::guard('admin')->user()->image))
+                                    <div class="btn-group-xs align-right">
+                                        <button type="button" id="deleteAdmin" name="deleteAdmin" dataId="admin-image" dataName="Admin Image" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
+                                    </div>
+                                @endif
                             </div>
                             <div class="profile-footer">
                                 <label for="email_address">Update Image</label>
@@ -101,22 +106,32 @@
                                     <label for="password">New Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" value="{{ ucwords($userDetails['name']) }}">
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($userDetails['name'])) }}" @endif>
                                         </div>
-                                        <div class="help-info" id="newNameError" name="newNameError"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="password">New Mobile</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" value="{{ ucwords($userDetails['mobile']) }}">
+                                            <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim(ucwords($userDetails['mobile'])) }}" @endif>
                                         </div>
-                                        <div class="help-info" id="newNumberError" name="newNumberError"></div>
                                     </div>
                                 </div>
-                                <br>
-                                <button type="submit" class="btn btn-success m-t-15 waves-effect" id="detailUpdate" name="detailUpdate">UPDATE</button>
+                                <div class="col-md-12">
+                                    <label for="password">Notes</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="description" id="note" name="note" class="form-control no-resize" placeholder="Enter Notes" @if(!empty(old('note'))) value="{{ ucwords(old('note')) }}" @else @if ($userDetails['notes'] != null) value="{{ trim(ucwords($userDetails['notes'])) }}" @endif @endif>
+                                        </div>
+                                        @if(!empty(Auth::guard('admin')->user()->notes))
+                                            <div class="btn-group-xs align-right">
+                                                <button type="button" id="deleteAdmin" name="deleteAdmin"  dataId="notes" dataName="Notes" class="btn bg-red waves-effect m-t-5">Delete</button>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success waves-effect" id="detailUpdate" name="detailUpdate">UPDATE</button>
                             </div>
                         </div>
                     </div>

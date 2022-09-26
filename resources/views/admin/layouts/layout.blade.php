@@ -28,6 +28,9 @@
     <!-- Morris Chart Css-->
     <link href="{{ url('admin/plugins/morrisjs/morris.css') }}" rel="stylesheet"/>
 
+    <!-- Sweetalert Css -->
+    <link href="{{ url('admin/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="{{ url('admin/css/style.css') }}" rel="stylesheet"/>
 
@@ -116,9 +119,13 @@
         <!-- Sparkline Chart Plugin Js -->
         <script src="{{ url('admin/plugins/jquery-sparkline/jquery.sparkline.js') }}"></script>
 
+        <!-- SweetAlert Plugin Js -->
+        <script src="{{ url('admin/plugins/sweetalert/sweetalert.min.js') }}"></script>
+
         <!-- Custom Js -->
         <script src="{{ url('admin/js/admin.js') }}"></script>
         <script src="{{ url('admin/js/pages/index.js') }}"></script>
+        <script src="{{ url('admin/js/pages/ui/dialogs.js') }}"></script>
 
         <!-- Demo Js -->
         <script src="{{ url('admin/js/demo.js') }}"></script>

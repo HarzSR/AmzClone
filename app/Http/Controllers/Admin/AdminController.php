@@ -114,7 +114,7 @@ class AdminController extends Controller
     /**
      * Display login.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
 
     public function login(Request $request)
@@ -145,7 +145,7 @@ class AdminController extends Controller
             }
             else
             {
-                return redirect()->back()->with('error_message', 'Invalid Email or Password');
+                return redirect()->back()->with('error_message', 'Invalid Email or Password')->withInput($request->input());
             }
         }
 
@@ -206,7 +206,7 @@ class AdminController extends Controller
                 }
                 else if ($data['new_password'] != $data['confirm_password'])
                 {
-                    return redirect()->back()->with('error_message', 'New password and Cofirm password are not same');
+                    return redirect()->back()->with('error_message', 'New password and Confirm password are not same');
                 }
                 else
                 {
@@ -247,9 +247,19 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Update Admin Details
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
     public function updateAdminDetails(Request $request)
     {
         Session::put('page', 'adminDetailsUpdate');
+
+        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
         if($request->isMethod('POST'))
         {
@@ -258,17 +268,26 @@ class AdminController extends Controller
             $rules = [
                 'name' => 'nullable|min:3|regex:/^[-_ a-zA-Z0-9]+$/',
                 'number' => 'nullable|min:8|regex:/^([0-9\s\-\+\(\)]*)$/',
-                'adminImage' => 'nullable|mimes:jpeg,jpg,png'
+                'adminImage' => 'nullable|mimes:jpeg,jpg,png',
+                'note' => 'nullable|min:3|max:2048|regex:/^[-_ a-zA-Z0-9]+$/'
             ];
             $customMessages = [
                 'name.min' => 'The name is too short.',
                 'name.regex' => 'The name has unauthorised characters.',
                 'number.min' => 'The number is too short.',
                 'number.regex' => 'The number is in invalid format.',
-                'adminImage.mimes' => 'Invalid image format. Allowed: jpeg, jpg, png',
+                'adminImage.mimes' => 'Invalid image format. Allowed: jpeg, jpg, png.',
+                'note.min' => 'Note is too short. Please type more.',
+                'note.max' => 'Note is too large. Please reduce size to 2000 characters.',
+                'note.regex' => 'The note is in invalid format.',
             ];
 
             $this->validate($request, $rules, $customMessages);
+
+            $image = 0;
+            $name = 0;
+            $number = 0;
+            $note = 0;
 
             if($request->hasFile('adminImage'))
             {
@@ -284,106 +303,161 @@ class AdminController extends Controller
                     Image::make($image_tmp)->resize(300, 400)->save($imagePath);
                 }
 
+                $image = 1;
+
+            }
+
+            if($request->has('name') && $data['name'] != '' && $userDetails['name'] != $data['name'])
+            {
+                $name = 1;
+            }
+
+            if($request->has('number') && $data['number'] != '' && $userDetails['mobile'] != $data['number'])
+            {
+                $number = 1;
+            }
+
+            if($request->has('note') && $data['note'] != '' && $userDetails['notes'] != $data['note'])
+            {
+                $note = 1;
+            }
+
+            if($image == 0 && $name == 0 && $number == 0 && $note == 0)
+            {
+                return redirect()->back()->with('success_message', 'No updates were made.');
+            }
+            else if($image == 0 && $name == 0 && $number == 0 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['notes' => $data['note']]);
+
+                return redirect()->back()->with('success_message', 'User notes updated');
+            }
+            else if($image == 0 && $name == 0 && $number == 1 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
+
+                return redirect()->back()->with('success_message', 'User number updated');
+            }
+            else if($image == 0 && $name == 0 && $number == 1 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number'], 'notes' => $data['note']]);
+
+                return redirect()->back()->with('success_message', 'User number & notes updated');
+            }
+            else if($image == 0 && $name == 1 && $number == 0 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
+
+                return redirect()->back()->with('success_message', 'User name updated');
+            }
+            else if($image == 0 && $name == 1 && $number == 0 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'notes' => $data['note']]);
+
+                return redirect()->back()->with('success_message', 'User name & notes updated');
+            }
+            else if($image == 0 && $name == 1 && $number == 1 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number']]);
+
+                return redirect()->back()->with('success_message', 'User name & number updated');
+            }
+            else if($image == 0 && $name == 1 && $number == 1 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number'], 'notes' => $data['note']]);
+
+                return redirect()->back()->with('success_message', 'User name, number & notes updated');
+            }
+            else if($image == 1 && $name == 0 && $number == 0 && $note == 0)
+            {
                 Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName]);
 
-                if ($data['name'] == '' && $data['number'] == '')
-                {
-                    return redirect()->back()->with('success_message', 'User image was updated');
-                }
-                else if ($data['name'] != '' && $data['number'] == '')
-                {
-                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
+                return redirect()->back()->with('success_message', 'User image was updated');
+            }
+            else if($image == 1 && $name == 0 && $number == 0 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'notes' => $data['note']]);
 
-                    return redirect()->back()->with('success_message', 'User name and Image is updated');
-                }
-                else if ($data['name'] == '' && $data['number'] != '')
-                {
-                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
+                return redirect()->back()->with('success_message', 'User image & notes updated');
+            }
+            else if($image == 1 && $name == 0 && $number == 1 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'mobile' => $data['number']]);
 
-                    return redirect()->back()->with('success_message', 'User number and Image is updated');
-                }
-                else if ($data['name'] != '' && $data['number'] != '')
-                {
-                    if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number']]);
+                return redirect()->back()->with('success_message', 'User image & number updated');
+            }
+            else if($image == 1 && $name == 0 && $number == 1 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'mobile' => $data['number'], 'notes' => $data['note']]);
 
-                        return redirect()->back()->with('success_message', 'User details updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
+                return redirect()->back()->with('success_message', 'User image, number & notes updated');
+            }
+            else if($image == 1 && $name == 1 && $number == 0 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'name' => $data['name']]);
 
-                        return redirect()->back()->with('success_message', 'User number and Image is updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
+                return redirect()->back()->with('success_message', 'User image & name updated');
+            }
+            else if($image == 1 && $name == 1 && $number == 0 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'name' => $data['name'], 'notes' => $data['note']]);
 
-                        return redirect()->back()->with('success_message', 'User name and Image is updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
-                    {
-                        return redirect()->back()->with('success_message', 'User image was update');
-                    }
-                }
-                else
-                {
-                    return redirect()->back()->with('error_message', 'Invalid data, please try again');
-                }
+                return redirect()->back()->with('success_message', 'User image, name & notes updated');
+            }
+            else if($image == 1 && $name == 1 && $number == 1 && $note == 0)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => $imageName, 'name' => $data['name'], 'mobile' => $data['number']]);
+
+                return redirect()->back()->with('success_message', 'User name, number & number updated');
+            }
+            else if($image == 1 && $name == 1 && $number == 1 && $note == 1)
+            {
+                Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number'], 'notes' => $data['note']]);
+
+                return redirect()->back()->with('success_message', 'User details updated');
             }
             else
             {
-                if ($data['name'] == "" && $data['number'] == "")
-                {
-                    return redirect()->back()->with('success_message', 'No updates were made');
-                }
-                else if ($data['name'] != '' && $data['number'] == '')
-                {
-                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
-
-                    return redirect()->back()->with('success_message', 'User name is updated');
-                }
-                else if ($data['name'] == '' && $data['number'] != '')
-                {
-                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
-
-                    return redirect()->back()->with('success_message', 'User number is updated');
-                }
-                else if ($data['name'] != '' && $data['number'] != '')
-                {
-                    if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['number']]);
-
-                        return redirect()->back()->with('success_message', 'User details updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile != $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['mobile' => $data['number']]);
-
-                        return redirect()->back()->with('success_message', 'User number is updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name != $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
-                    {
-                        Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name']]);
-
-                        return redirect()->back()->with('success_message', 'User name is updated');
-                    }
-                    else if (Auth::guard('admin')->user()->name == $data['name'] && Auth::guard('admin')->user()->mobile == $data['number'])
-                    {
-                        return redirect()->back()->with('success_message', 'No updates were made');
-                    }
-                }
-                else
-                {
-                    return redirect()->back()->with('error_message', 'Invalid data, please try again');
-                }
+                return redirect()->back()->with('error_message', 'Invalid data, please try again')->withInput($request->input());
             }
         }
 
-        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
-
         return view('admin.settings.update_admin_details')->with(compact('userDetails'));
+    }
+
+    /**
+     * Delete Admin Notes
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function deleteNotes()
+    {
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+
+        return redirect()->back()->with('success_message', 'Notes removed successfully');
+    }
+
+    /**
+     * Delete Admin Images
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function deleteAdminImage()
+    {
+        $imageName = Admin::select('image')->where('id', Auth::guard('admin')->user()->id)->first();
+
+        $image_path = 'admin/images/admin_images/' . $imageName->image;
+
+        // File::delete($large_image_path, $medium_image_path, $small_image_path);
+        if (file_exists($image_path) && !empty($imageName->image))
+        {
+            unlink($image_path);
+        }
+
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => '']);
+
+        return redirect()->back()->with('success_message', 'Image removed successfully');
     }
 }
