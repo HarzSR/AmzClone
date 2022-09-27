@@ -40,15 +40,19 @@
                             <div class="profile-header">&nbsp;</div>
                             <div class="profile-body">
                                 <div class="image-area">
-                                    <img src="@if(!empty(Auth::guard('admin')->user()->image)) {{ asset('admin/images/admin_images/' . Auth::guard('admin')->user()->image) }} @else images/user.png  @endif" alt="AdminBSB - Profile Image" width="128px" height="128px"/>
+                                    <img src="@if(!empty(Auth::guard('admin')->user()->image)  && file_exists(public_path('admin/images/admin_images/' . Auth::guard('admin')->user()->image))) {{ asset('admin/images/admin_images/' . Auth::guard('admin')->user()->image) }} @else images/user.png  @endif" alt="AdminBSB - Profile Image" width="128px" height="128px"/>
                                 </div>
                                 <div class="content-area">
                                     <h3>{{ ucwords($userDetails['name']) }}</h3>
                                     <p></p>
                                 </div>
-                                @if(!empty(Auth::guard('admin')->user()->image))
+                                @if(!empty(Auth::guard('admin')->user()->image) && file_exists(public_path('admin/images/admin_images/' . Auth::guard('admin')->user()->image)))
                                     <div class="btn-group-xs align-right">
                                         <button type="button" id="deleteAdmin" name="deleteAdmin" dataId="admin-image" dataName="Admin Image" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
+                                    </div>
+                                @elseif(!empty(Auth::guard('admin')->user()->image))
+                                    <div class="btn-group-xs align-right">
+                                        <button type="button" id="deleteAdmin" name="deleteAdmin" dataId="admin-image" dataName="Admin Image" class="btn bg-red waves-effect m-r-5 m-t-5">Invalid Image for Admin. Suggest click here.</button>
                                     </div>
                                 @endif
                             </div>

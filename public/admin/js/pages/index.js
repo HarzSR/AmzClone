@@ -11,7 +11,7 @@
 
     var pageCheck = ((window.location.pathname).split("/").pop());
 
-    if(pageCheck === 'dashboard')
+    if(pageCheck === 'dashboard' && userType === 'admin')
     {
         initRealTimeChart();
         initDonutChart();

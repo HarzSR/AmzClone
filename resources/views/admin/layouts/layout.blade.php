@@ -131,6 +131,13 @@
         <script src="{{ url('admin/js/demo.js') }}"></script>
 
         <script type="text/javascript">
+
+            // Set User Type Variable
+
+            const userType = "{{ Auth::guard('admin')->user()->type }}"
+
+            // Display time on top right
+
             function showTime() {
                 var date = new Date(),
                     utc = new Date(Date.now());
@@ -149,6 +156,7 @@
             }
 
             setInterval(showTime, 1000);
+
         </script>
 
         <script src="{{ url('admin/js/custom.js') }}"></script>
