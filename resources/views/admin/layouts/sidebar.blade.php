@@ -46,17 +46,20 @@
                     </li>
                 @endif
                 @if(Auth::guard('admin')->user()->type == 'vendor')
-                    <li @if(Session::get('page') == "vendorDetailsUpdate" || Session::get('page') == 'vendorBankUpdates') class="active" @endif >
+                    <li @if(Session::get('page') == "vendorDetailsUpdate" || Session::get('page') == 'vendorBusinessUpdates' || Session::get('page') == 'vendorBankUpdates') class="active" @endif >
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">settings</i>
                             <span>Vendor Settings</span>
                         </a>
                         <ul class="ml-menu">
-                            <li @if(Session::get('page') == "adminPasswordUpdate") class="active" @endif >
-                                <a href="{{ url('/admin/vendor-details') }}">Personal Details</a>
+                            <li @if(Session::get('page') == "vendorDetailsUpdate") class="active" @endif >
+                                <a href="{{ url('/admin/vendor-update/personal') }}">Personal Details</a>
                             </li>
-                            <li @if(Session::get('page') == "adminDetailsUpdate") class="active" @endif>
-                                <a href="{{ url('/admin/bank-details') }}">Bank Details</a>
+                            <li @if(Session::get('page') == "vendorBusinessUpdates") class="active" @endif>
+                                <a href="{{ url('/admin/vendor-update/business') }}">Business Details</a>
+                            </li>
+                            <li @if(Session::get('page') == "vendorBankUpdates") class="active" @endif>
+                                <a href="{{ url('/admin/vendor-update/bank') }}">Bank Details</a>
                             </li>
                         </ul>
                     </li>

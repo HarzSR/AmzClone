@@ -31,6 +31,7 @@ require __DIR__.'/auth.php';
 Route::prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'login'])->name('Sign In');
     Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('Sign In');
+    Route::get('error/{slug}', [AdminController::class, 'error'])->name('Error');
 
     Route::group(['middleware' => ['admin']], function() {
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('Dashboard');
@@ -41,6 +42,8 @@ Route::prefix('/admin')->group(function () {
         Route::post('check-current-password', [AdminController::class, 'checkCurrentPassword']);
         Route::get('delete-notes', [AdminController::class, 'deleteNotes']);
         Route::get('delete-admin-image', [AdminController::class, 'deleteAdminImage']);
+
+        Route::match(['GET', 'POST'], 'vendor-update/{slug}', [AdminController::class, 'updateVendorDetails'])->name('Update Vendor Details');
     });
 
 });

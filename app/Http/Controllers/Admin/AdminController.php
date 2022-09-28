@@ -460,4 +460,58 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success_message', 'Image removed successfully');
     }
+
+    public function updateVendorDetails(Request $request, $slug = null)
+    {
+        if($request->isMethod('POST'))
+        {
+            $data = $request->all();
+
+            if($slug == 'personal')
+            {
+
+            }
+            elseif($slug == 'business')
+            {
+
+            }
+            elseif($slug == 'bank')
+            {
+
+            }
+            else
+            {
+                return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+            }
+        }
+
+        if($slug == 'personal')
+        {
+            Session::put('page', 'vendorDetailsUpdate');
+        }
+        elseif($slug == 'business')
+        {
+            Session::put('page', 'vendorBusinessUpdates');
+        }
+        elseif($slug == 'bank')
+        {
+            Session::put('page', 'vendorBankUpdates');
+        }
+        else
+        {
+            return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+        }
+
+        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+
+        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails'));
+    }
+
+    public function error($slug = null)
+    {
+        if($slug != null)
+        {
+            return view('admin.error.custom_error')->with(compact('slug'));
+        }
+    }
 }
