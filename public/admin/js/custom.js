@@ -123,3 +123,23 @@ $(function() {
         });
     });
 });
+
+$(function() {
+    $('#deleteVendor').on('click', function() {
+        var deleteName = $(this).attr('dataName');
+        var deleteId = $(this).attr('dataId');
+        var deleteSlug = $(this).attr('slug');
+        swal({
+            title: 'Requesting Confirmation',
+            text: 'Do you want to delete ' + deleteName + ".",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085D6',
+            cancelButtonColor: '#D33',
+            confirmButtonText: 'Yes, Delete it',
+            focusCancel: true,
+        }, function() {
+            window.location.href = "/admin/delete-vendor-" + deleteId + "/" + deleteSlug;
+        });
+    });
+});

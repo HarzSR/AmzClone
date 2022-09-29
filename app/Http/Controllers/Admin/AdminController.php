@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin\Admin;
+use App\Models\Admin\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -503,8 +504,9 @@ class AdminController extends Controller
         }
 
         $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+        $vendorDetails = Vendor::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
-        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails'));
+        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails'));
     }
 
     public function error($slug = null)
