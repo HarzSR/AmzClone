@@ -7,6 +7,8 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin\Admin;
 use App\Models\Admin\Vendor;
+use App\Models\Admin\VendorsBankDetail;
+use App\Models\Admin\VendorsBusinessDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -432,7 +434,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function deleteNotes()
+    public function deleteAdminNotes()
     {
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
 
@@ -507,6 +509,39 @@ class AdminController extends Controller
         $vendorDetails = Vendor::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
         return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails'));
+    }
+
+    /**
+     * Delete User Personal Notes
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function deleteVendorNotes($slug = null)
+    {
+        if($slug == null)
+        {
+            return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+        }
+        elseif($slug == 'personal')
+        {
+            Admin::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+            Vendor::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+        }
+        elseif($slug == 'business')
+        {
+            VendorsBusinessDetail::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+        }
+        elseif($slug == 'bank')
+        {
+            VendorsBankDetail::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+        }
+        else
+        {
+            return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+        }
+
+        return redirect()->back()->with('success_message', 'Notes removed successfully');
     }
 
     public function error($slug = null)

@@ -15,7 +15,8 @@ use App\Http\Controllers\Admin\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/admin/dashboard');
 });
 
 /*
@@ -40,10 +41,11 @@ Route::prefix('/admin')->group(function () {
         Route::match(['GET', 'POST'], 'admin-password', [AdminController::class, 'updateAdminPassword'])->name('Update Admin Password');
         Route::match(['GET', 'POST'], 'admin-details', [AdminController::class, 'updateAdminDetails'])->name('Update Admin Details');
         Route::post('check-current-password', [AdminController::class, 'checkCurrentPassword']);
-        Route::get('delete-notes', [AdminController::class, 'deleteNotes']);
+        Route::get('delete-notes', [AdminController::class, 'deleteAdminNotes']);
         Route::get('delete-admin-image', [AdminController::class, 'deleteAdminImage']);
 
         Route::match(['GET', 'POST'], 'vendor-update/{slug}', [AdminController::class, 'updateVendorDetails'])->name('Update Vendor Details');
+        Route::get('delete-vendor-notes/{slug}'. [AdminController::class, 'deleteVendorNotes']);
     });
 
 });
