@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('pincode');
             $table->string('mobile');
             $table->string('email')->unique();
-            $table->tinyInteger('status');
-            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

@@ -13,12 +13,18 @@
                             <strong>Error: </strong> {{ \Illuminate\Support\Facades\Session::get('error_message') }}
                         </div>
                     @endif
-                        @if(\Illuminate\Support\Facades\Session::has('success_message'))
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <strong>Success: </strong> {{ \Illuminate\Support\Facades\Session::get('success_message') }}
-                            </div>
-                        @endif
+                    @if(\Illuminate\Support\Facades\Session::has('neutral_message'))
+                        <div class="alert alert-info alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Notice: </strong> {{ \Illuminate\Support\Facades\Session::get('neutral_message') }}
+                        </div>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Session::has('success_message'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Success: </strong> {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                        </div>
+                    @endif
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -70,9 +76,22 @@
                         <div class="col-xs-12 col-sm-9">
                             <div class="card">
                                 <div class="header">
-                                    <h2>
+                                    <h2 style="display: inline-block;">
                                         UPDATE VENDOR DETAILS
                                     </h2>
+                                    @if($userDetails['status'] == 1)
+                                        <button class="btn btn-success waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            ACTIVE
+                                        </button>
+                                    @elseif($userDetails['status'] == 0)
+                                        <button class="btn btn-danger waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            IN-ACTIVE
+                                        </button>
+                                    @else
+                                        <button type="button" onclick="location.href='{{ url('admin/fix-vendor') }}';" class="btn btn-primary waves-effect m-t--5" style="display: inline-block; float: right;">
+                                            UNKNOWN
+                                        </button>
+                                    @endif
                                 </div>
                                 <div class="body">
                                     <div class="col-md-3">
@@ -180,9 +199,22 @@
                         <div class="col-xs-12 col-sm-9">
                             <div class="card">
                                 <div class="header">
-                                    <h2>
+                                    <h2 style="display: inline-block;">
                                         UPDATE BUSINESS DETAILS
                                     </h2>
+                                    @if($userDetails['status'] == 1)
+                                        <button class="btn btn-success waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            ACTIVE
+                                        </button>
+                                    @elseif($userDetails['status'] == 0)
+                                        <button class="btn btn-danger waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            IN-ACTIVE
+                                        </button>
+                                    @else
+                                        <button type="button" onclick="location.href='{{ url('admin/fix-vendor') }}';" class="btn btn-primary waves-effect m-t--5" style="display: inline-block; float: right;">
+                                            UNKNOWN
+                                        </button>
+                                    @endif
                                 </div>
                                 <div class="body">
                                     <div class="col-md-3">
@@ -253,42 +285,28 @@
                     </div>
                 </form>
             @elseif($slug == 'bank')
-                <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails" enctype="multipart/form-data">
+                <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails">
                     @csrf
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            @if(\Illuminate\Support\Facades\Session::has('error_message'))
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Error: </strong> {{ \Illuminate\Support\Facades\Session::get('error_message') }}
-                                </div>
-                            @endif
-                            @if(\Illuminate\Support\Facades\Session::has('success_message'))
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Success: </strong> {{ \Illuminate\Support\Facades\Session::get('success_message') }}
-                                </div>
-                            @endif
-                            @if($errors->any())
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Error: </strong>
-                                    <br>
-                                    @foreach($errors->all() as $error)
-                                        &emsp; &#x2022; {{ $error }}<br>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="card">
                                 <div class="header">
-                                    <h2>
+                                    <h2 style="display: inline-block;">
                                         UPDATE BANK DETAILS
                                     </h2>
+                                    @if($userDetails['status'] == 1)
+                                        <button class="btn btn-success waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            ACTIVE
+                                        </button>
+                                    @elseif($userDetails['status'] == 0)
+                                        <button class="btn btn-danger waves-effect m-t--5" style="display: inline-block; float: right; pointer-events: none;">
+                                            IN-ACTIVE
+                                        </button>
+                                    @else
+                                        <button type="button" onclick="location.href='{{ url('admin/fix-vendor') }}';" class="btn btn-primary waves-effect m-t--5" style="display: inline-block; float: right;">
+                                            UNKNOWN
+                                        </button>
+                                    @endif
                                 </div>
                                 <div class="body">
                                     <div class="col-md-3">

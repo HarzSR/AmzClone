@@ -167,7 +167,7 @@ class AdminController extends Controller
 
         Session::flush();
 
-        return redirect('/admin/login');
+        return redirect('/admin/login')->with('success_message', 'Logout Successful');
     }
 
     /**
@@ -327,7 +327,7 @@ class AdminController extends Controller
 
             if($image == 0 && $name == 0 && $number == 0 && $note == 0)
             {
-                return redirect()->back()->with('success_message', 'No updates were made.');
+                return redirect()->back()->with('neutral_message', 'No updates were made.');
             }
             else if($image == 0 && $name == 0 && $number == 0 && $note == 1)
             {
@@ -509,6 +509,18 @@ class AdminController extends Controller
         $vendorDetails = Vendor::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
 
         return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails'));
+    }
+
+    public function fixVendorStatus()
+    {
+        if(Auth::guard('admin')->user()->status == 0 || Auth::guard('admin')->user()->status == 1)
+        {
+            return redirect()->back()->with('error_message', 'Status already perfect. Please refresh page');
+        }
+
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['status' => 0]);
+
+        return redirect()->back()->with('success_message', 'Fixed status successfully');
     }
 
     /**
