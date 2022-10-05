@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('vendor_id');
             $table->string('shop_name');
+            $table->string('image');
             $table->string('shop_address');
             $table->string('shop_area');
             $table->string('shop_city');

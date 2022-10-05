@@ -556,6 +556,52 @@ class AdminController extends Controller
         return redirect()->back()->with('success_message', 'Notes removed successfully');
     }
 
+    public function deleteVendorImages($slug = null)
+    {
+        if($slug == null)
+        {
+            return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+        }
+        elseif($slug == 'personal')
+        {
+            $imageName = Admin::select('image')->where('id', Auth::guard('admin')->user()->id)->first();
+
+            $image_path = 'admin/images/vendor_images/' . $imageName->image;
+
+            // File::delete($large_image_path, $medium_image_path, $small_image_path);
+            if (file_exists($image_path) && !empty($imageName->image))
+            {
+                unlink($image_path);
+            }
+
+            Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => '']);
+
+            return redirect()->back()->with('success_message', 'Image removed successfully');
+        }
+        elseif($slug == 'business')
+        {
+            $imageName = VendorsBusinessDetail::select('image')->where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
+
+            $image_path = 'admin/images/business_images/' . $imageName->image;
+
+            // File::delete($large_image_path, $medium_image_path, $small_image_path);
+            if (file_exists($image_path) && !empty($imageName->image))
+            {
+                unlink($image_path);
+            }
+
+            VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->update(['image' => '']);
+
+            return redirect()->back()->with('success_message', 'Image removed successfully');
+        }
+        else
+        {
+            return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
+        }
+
+        return redirect()->back()->with('success_message', 'Notes removed successfully');
+    }
+
     public function error($slug = null)
     {
         if($slug != null)
