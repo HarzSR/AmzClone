@@ -276,6 +276,7 @@ select.selectpicker {
 }
 .bs-searchbox .form-control {
   margin-bottom: 0;
+  margin-right: 30px;
   width: 100%;
   float: none;
 }

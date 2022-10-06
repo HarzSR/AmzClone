@@ -472,15 +472,21 @@ class AdminController extends Controller
 
             if($slug == 'personal')
             {
-
+                echo '<pre>';
+                print_r($data);
+                die;
             }
             elseif($slug == 'business')
             {
-
+                echo '<pre>';
+                print_r($data);
+                die;
             }
             elseif($slug == 'bank')
             {
-
+                echo '<pre>';
+                print_r($data);
+                die;
             }
             else
             {
@@ -507,8 +513,10 @@ class AdminController extends Controller
 
         $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
         $vendorDetails = Vendor::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+        $vendorBusinessDetails = VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+        $vendorBankDetails = VendorsBankDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
 
-        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails'));
+        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails', 'vendorBusinessDetails', 'vendorBankDetails'));
     }
 
     public function fixVendorStatus()

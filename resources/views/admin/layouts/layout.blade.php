@@ -9,27 +9,49 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon-->
-    <link rel="icon" href="{{ url('admin/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url('admin/images/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-          type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
 
     <!-- Bootstrap Core Css -->
-    <link href="{{ url('admin/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ url('admin/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
-    <link href="{{ url('admin/plugins/node-waves/waves.css') }}" rel="stylesheet"/>
+    <link href="{{ url('admin/plugins/node-waves/waves.css') }}" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="{{ url('admin/plugins/animate-css/animate.css') }}" rel="stylesheet"/>
+    <link href="{{ url('admin/plugins/animate-css/animate.css') }}" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="{{ url('admin/plugins/morrisjs/morris.css') }}" rel="stylesheet"/>
+    <link href="{{ url('admin/plugins/morrisjs/morris.css') }}" rel="stylesheet" />
 
     <!-- Sweetalert Css -->
     <link href="{{ url('admin/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
+
+
+
+    <!-- Colorpicker Css -->
+    <link href="{{ url('admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" rel="stylesheet" />
+
+    <!-- Dropzone Css -->
+    <link href="{{ url('admin/plugins/dropzone/dropzone.css') }}" rel="stylesheet" />
+
+    <!-- Multi Select Css -->
+    <link href="{{ url('admin/plugins/multi-select/css/multi-select.css') }}" rel="stylesheet" />
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="{{ url('admin/plugins/jquery-spinner/css/bootstrap-spinner.css') }}" rel="stylesheet" />
+
+    <!-- Bootstrap Tagsinput Css -->
+    <link href="{{ url('admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="{{ url('admin/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+
+    <!-- noUISlider Css -->
+    <link href="{{ url('admin/plugins/nouislider/nouislider.min.css') }}" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="{{ url('admin/css/style.css') }}" rel="stylesheet"/>
@@ -96,11 +118,32 @@
         <!-- Slimscroll Plugin Js -->
         <script src="{{ url('admin/plugins/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
 
-        <!-- Waves Effect Plugin Js -->
-        <script src="{{ url('admin/plugins/node-waves/waves.js') }}"></script>
+        <!-- Bootstrap Colorpicker Js -->
+        <script src="{{ url('admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+
+        <!-- Dropzone Plugin Js -->
+        <script src="{{ url('admin/plugins/dropzone/dropzone.js"') }}></script>
+
+        <!-- Input Mask Plugin Js -->
+        <script src="{{ url('admin/plugins/jquery-inputmask/jquery.inputmask.bundle.js') }}"></script>
+
+        <!-- Multi Select Plugin Js -->
+        <script src="{{ url('admin/plugins/multi-select/js/jquery.multi-select.js"') }}'></script>
+
+        <!-- Jquery Spinner Plugin Js -->
+        <script src="{{ url('admin/plugins/jquery-spinner/js/jquery.spinner.js') }}"></script>
+
+        <!-- Bootstrap Tags Input Plugin Js -->
+        <script src="{{ url('admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"') }}'></script>
+
+        <!-- noUISlider Plugin Js -->
+        <script src="{{ url('admin/plugins/nouislider/nouislider.js') }}"></script>
 
         <!-- Jquery CountTo Plugin Js -->
         <script src="{{ url('admin/plugins/jquery-countto/jquery.countTo.js') }}"></script>
+
+        <!-- Waves Effect Plugin Js -->
+        <script src="{{ url('admin/plugins/node-waves/waves.js') }}"></script>
 
         <!-- Morris Plugin Js -->
         <script src="{{ url('admin/plugins/raphael/raphael.min.js') }}"></script>
@@ -126,6 +169,7 @@
         <script src="{{ url('admin/js/admin.js') }}"></script>
         <script src="{{ url('admin/js/pages/index.js') }}"></script>
         <script src="{{ url('admin/js/pages/ui/dialogs.js') }}"></script>
+        <script src="{{ url('admin/js/pages/forms/advanced-form-elements.js') }}"></script>
 
         <!-- Demo Js -->
         <script src="{{ url('admin/js/demo.js') }}"></script>
