@@ -472,9 +472,36 @@ class AdminController extends Controller
 
             if($slug == 'personal')
             {
-                echo '<pre>';
-                print_r($data);
-                die;
+                $rules = [
+                    'name' => 'nullable|min:3|regex:/^[-_ a-zA-Z0-9]+$/',
+                    'number' => 'nullable|min:8|regex:/^([0-9\s\-\+\(\)]*)$/',
+                    'address' => 'nullable|min:3|regex:/^[-_ a-zA-Z0-9]+$/',
+                    'city' => 'nullable|min:3|regex:/^[-_ a-zA-Z]+$/',
+                    'state' => 'nullable|min:3|regex:/^[-_ a-zA-Z]+$/',
+                    'pincode' => 'nullable|min:3|regex:/^[-_ a-zA-Z0-9]+$/',
+                    'vendorImage' => 'nullable|mimes:jpeg,jpg,png',
+                    'note' => 'nullable|min:3|max:2048|regex:/^[-_ a-zA-Z0-9]+$/'
+                ];
+                $customMessages = [
+                    'name.min' => 'The name is too short.',
+                    'name.regex' => 'The name has unauthorised characters.',
+                    'number.min' => 'The number is too short.',
+                    'number.regex' => 'The number is in invalid format.',
+                    'address.min' => 'The address is too short.',
+                    'address.regex' => 'The address has unauthorised characters.',
+                    'city.min' => 'The city is too short.',
+                    'city.regex' => 'The city has unauthorised characters.',
+                    'state.min' => 'The state is too short.',
+                    'state.regex' => 'The state has unauthorised characters.',
+                    'pincode.min' => 'The pincode is too short.',
+                    'pincode.regex' => 'The pincode has unauthorised characters.',
+                    'adminImage.mimes' => 'Invalid image format. Allowed: jpeg, jpg, png.',
+                    'note.min' => 'Note is too short. Please type more.',
+                    'note.max' => 'Note is too large. Please reduce size to 2000 characters.',
+                    'note.regex' => 'The note is in invalid format.',
+                ];
+
+                $this->validate($request, $rules, $customMessages);
             }
             elseif($slug == 'business')
             {

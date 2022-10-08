@@ -146,7 +146,7 @@
                                         <label>New Country</label>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <select class="form-control show-tick" data-live-search="true">
+                                                <select class="form-control show-tick" id="country" name="country" data-live-search="true">
                                                     <option value="" disabled selected>Country</option>
                                                     <option value="Afghanistan">Afghanistan</option>
                                                     <option value="Aland Islands">Aland Islands</option>
@@ -409,7 +409,7 @@
                                         <label>New Address</label>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($userDetails['name'])) }}" @endif>
+                                                <input type="text" id="address" name="address" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($vendorDetails['address'])) }}" @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -417,7 +417,7 @@
                                         <label>New City</label>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim(ucwords($userDetails['mobile'])) }}" @endif>
+                                                <input type="text" id="city" name="city" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim(ucwords($vendorDetails['city'])) }}" @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -425,7 +425,7 @@
                                         <label>New State</label>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($userDetails['name'])) }}" @endif>
+                                                <input type="text" id="state" name="state" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($vendorDetails['state'])) }}" @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -433,7 +433,7 @@
                                         <label>New Pincode</label>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim(ucwords($userDetails['mobile'])) }}" @endif>
+                                                <input type="text" id="pincode" name="pincode" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim($vendorDetails['pincode']) }}" @endif>
                                             </div>
                                         </div>
                                     </div>
