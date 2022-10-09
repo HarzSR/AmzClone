@@ -139,7 +139,7 @@ $(function() {
             confirmButtonText: 'Yes, Delete it',
             focusCancel: true,
         }, function() {
-            window.location.href = "/admin/delete-vendor-" + deleteId + "/" + deleteSlug;
+            window.location.href = "/admin/delete-" + deleteId + "/" + deleteSlug;
         });
     });
 });

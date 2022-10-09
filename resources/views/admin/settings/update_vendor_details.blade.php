@@ -55,11 +55,11 @@
                                     </div>
                                     @if(!empty(Auth::guard('admin')->user()->image) && file_exists(public_path('admin/images/vendor_images/' . Auth::guard('admin')->user()->image)))
                                         <div class="btn-group-xs align-right">
-                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Vendor Image" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
+                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Vendor Image" slug="personal" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
                                         </div>
                                     @elseif(!empty(Auth::guard('admin')->user()->image))
                                         <div class="btn-group-xs align-right">
-                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Vendor Image" class="btn bg-red waves-effect m-r-5 m-t-5">Invalid Image for Admin. Suggest click here.</button>
+                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Vendor Image" slug="personal" class="btn bg-red waves-effect m-r-5 m-t-5">Invalid Image for Admin. Suggest click here.</button>
                                         </div>
                                     @endif
                                 </div>
@@ -465,19 +465,19 @@
                                 <div class="profile-header">&nbsp;</div>
                                 <div class="profile-body">
                                     <div class="image-area">
-                                        <img src="@if(!empty(Auth::guard('admin')->user()->image)  && file_exists(public_path('admin/images/admin_images/' . Auth::guard('admin')->user()->image))) {{ asset('admin/images/admin_images/' . Auth::guard('admin')->user()->image) }} @else ../../admin/images/user.png  @endif" alt="AdminBSB - Profile Image" width="128px" height="128px"/>
+                                        <img src="@if(!empty($vendorBusinessDetails['image'])  && file_exists(public_path('admin/images/business_images/' . $vendorBusinessDetails['image']))) {{ asset('admin/images/admin_images/' . $vendorBusinessDetails['image']) }} @else ../../admin/images/user.png  @endif" alt="AdminBSB - Business Image" width="128px" height="128px"/>
                                     </div>
                                     <div class="content-area">
-                                        <h3>{{ ucwords($userDetails['name']) }}</h3>
+                                        <h3>{{ ucwords($vendorBusinessDetails['shop_name']) }}</h3>
                                         <p></p>
                                     </div>
-                                    @if(!empty(Auth::guard('admin')->user()->image) && file_exists(public_path('admin/images/admin_images/' . Auth::guard('admin')->user()->image)))
+                                    @if(!empty($vendorBusinessDetails['image'])  && file_exists(public_path('admin/images/business_images/' . $vendorBusinessDetails['image'])))
                                         <div class="btn-group-xs align-right">
-                                            <button type="button" id="deleteAdmin" name="deleteAdmin" dataId="admin-image" dataName="Admin Image" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
+                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Business Image" slug="business" class="btn bg-red waves-effect m-r-5 m-t-5">Delete</button>
                                         </div>
-                                    @elseif(!empty(Auth::guard('admin')->user()->image))
+                                    @elseif(!empty($vendorBusinessDetails['image']))
                                         <div class="btn-group-xs align-right">
-                                            <button type="button" id="deleteAdmin" name="deleteAdmin" dataId="admin-image" dataName="Admin Image" class="btn bg-red waves-effect m-r-5 m-t-5">Invalid Image for Admin. Suggest click here.</button>
+                                            <button type="button" id="deleteVendor" name="deleteVendor" dataId="vendor-image" dataName="Business Image" slug="business" class="btn bg-red waves-effect m-r-5 m-t-5">Invalid Image for Admin. Suggest click here.</button>
                                         </div>
                                     @endif
                                 </div>
