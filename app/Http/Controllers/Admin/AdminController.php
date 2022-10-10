@@ -146,6 +146,10 @@ class AdminController extends Controller
             {
                 return redirect('/admin/dashboard');
             }
+            elseif(Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'], 'status' => 0]))
+            {
+                return redirect('/admin/error/201')->with('error_message', 'User Disabled. Opening Dashboard with Limited Privilage.');
+            }
             else
             {
                 return redirect()->back()->with('error_message', 'Invalid Email or Password')->withInput($request->input());
@@ -540,7 +544,7 @@ class AdminController extends Controller
         {
             if($userDetails['status'] == 0)
             {
-                return redirect('/admin/error/404')->with('error_message', 'User Disabled. Check with Admin.');
+                return redirect('/admin/error/201')->with('error_message', 'User Disabled. Check with Admin.');
             }
 
             Session::put('page', 'vendorBusinessUpdates');

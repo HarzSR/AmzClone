@@ -50,7 +50,7 @@
                             <form action="{{ url('/admin/admin-password') }}" method="POST" id="updateAdminPassword" name="updateAdminPassword">
                                 @csrf
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Name</label>
+                                    <label">Admin Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['name']) }}">
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Type</label>
+                                    <label>Admin Type</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['type']) }}">
@@ -66,7 +66,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Email</label>
+                                    <label>Admin Email</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ $userDetails['email'] }}">
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Number</label>
+                                    <label>Admin Number</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['mobile']) }}">
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="password">Current Password</label>
+                                    <label>Current Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Enter Current Password" required>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="password">New Password</label>
+                                    <label>New Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Enter New Password" required>
@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="password">Repeat New Password</label>
+                                    <label>Repeat New Password</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Repeat New Password" required>

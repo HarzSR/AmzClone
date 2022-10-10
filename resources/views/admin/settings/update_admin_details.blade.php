@@ -63,7 +63,7 @@
                                 @endif
                             </div>
                             <div class="profile-footer">
-                                <label for="email_address">Update Image</label>
+                                <label>Update Image</label>
                                 <div class="form-group">
                                     <div class="form-line">
                                         <input type="file" class="form-control" id="adminImage" name="adminImage" accept="image/*">
@@ -81,7 +81,7 @@
                             </div>
                             <div class="body">
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Name</label>
+                                    <label>Admin Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['name']) }}">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Type</label>
+                                    <label>Admin Type</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['type']) }}">
@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Email</label>
+                                    <label>Admin Email</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ $userDetails['email'] }}">
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="email_address">Admin Number</label>
+                                    <label>Admin Number</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" disabled value="{{ ucwords($userDetails['mobile']) }}">
@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="password">New Name</label>
+                                    <label>New Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" @if(!empty(old('name'))) value="{{ ucwords(old('name')) }}" @else value="{{ trim(ucwords($userDetails['name'])) }}" @endif>
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="password">New Mobile</label>
+                                    <label>New Mobile</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" id="number" name="number" class="form-control" placeholder="Enter Mobile" @if(!empty(old('mobile'))) value="{{ ucwords(old('mobile')) }}" @else value="{{ trim(ucwords($userDetails['mobile'])) }}" @endif>
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="password">Notes</label>
+                                    <label>Notes</label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="description" id="note" name="note" class="form-control no-resize" placeholder="Enter Notes" @if(!empty(old('note'))) value="{{ ucwords(old('note')) }}" @else @if ($userDetails['notes'] != null) value="{{ trim(ucwords($userDetails['notes'])) }}" @endif @endif>
