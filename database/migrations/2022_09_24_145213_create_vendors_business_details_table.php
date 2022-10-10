@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('gst_number');
             $table->string('ird_number');
             $table->text('notes')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

@@ -55,12 +55,14 @@
                             <li @if(Session::get('page') == "vendorDetailsUpdate") class="active" @endif >
                                 <a href="{{ url('/admin/vendor-update/personal') }}">Personal Details</a>
                             </li>
-                            <li @if(Session::get('page') == "vendorBusinessUpdates") class="active" @endif>
-                                <a href="{{ url('/admin/vendor-update/business') }}">Business Details</a>
-                            </li>
-                            <li @if(Session::get('page') == "vendorBankUpdates") class="active" @endif>
-                                <a href="{{ url('/admin/vendor-update/bank') }}">Bank Details</a>
-                            </li>
+                            @if(Auth::guard('admin')->user()->status == 1)
+                                <li @if(Session::get('page') == "vendorBusinessUpdates") class="active" @endif>
+                                    <a href="{{ url('/admin/vendor-update/business') }}">Business Details</a>
+                                </li>
+                                <li @if(Session::get('page') == "vendorBankUpdates") class="active" @endif>
+                                    <a href="{{ url('/admin/vendor-update/bank') }}">Bank Details</a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif

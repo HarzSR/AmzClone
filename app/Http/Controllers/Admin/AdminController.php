@@ -464,6 +464,15 @@ class AdminController extends Controller
         return redirect()->back()->with('success_message', 'Image removed successfully');
     }
 
+    /**
+     * Update Vendor Details, Bank Details, Business Details
+     *
+     * @param Request $request
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
     public function updateVendorDetails(Request $request, $slug = null)
     {
         if($request->isMethod('POST'))
@@ -521,16 +530,28 @@ class AdminController extends Controller
             }
         }
 
+        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+
         if($slug == 'personal')
         {
             Session::put('page', 'vendorDetailsUpdate');
         }
         elseif($slug == 'business')
         {
+            if($userDetails['status'] == 0)
+            {
+                return redirect('/admin/error/404')->with('error_message', 'User Disabled. Check with Admin.');
+            }
+
             Session::put('page', 'vendorBusinessUpdates');
         }
         elseif($slug == 'bank')
         {
+            if($userDetails['status'] == 0)
+            {
+                return redirect('/admin/error/201')->with('error_message', 'User Disabled. Check with Admin.');
+            }
+
             Session::put('page', 'vendorBankUpdates');
         }
         else
@@ -538,12 +559,47 @@ class AdminController extends Controller
             return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
         }
 
-        $userDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
+        if($userDetails['status'] == 0)
+        {
+            $userStatus = 'disabled';
+        }
+        elseif($userDetails['status'] == 1)
+        {
+            $userStatus = '';
+        }
+        else
+        {
+            $userStatus = 'disabled';
+        }
         $vendorDetails = Vendor::where('email', Auth::guard('admin')->user()->email)->first()->toArray();
         $vendorBusinessDetails = VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+        if($vendorBusinessDetails['status'] == 0)
+        {
+            $businessStatus = 'disabled';
+        }
+        elseif($vendorBusinessDetails['status'] == 1)
+        {
+            $businessStatus = '';
+        }
+        else
+        {
+            $businessStatus = 'disabled';
+        }
         $vendorBankDetails = VendorsBankDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+        if($vendorBankDetails['status'] == 0)
+        {
+            $bankStatus = 'disabled';
+        }
+        elseif($vendorBankDetails['status'] == 1)
+        {
+            $bankStatus = '';
+        }
+        else
+        {
+            $bankStatus = 'disabled';
+        }
 
-        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'vendorDetails', 'vendorBusinessDetails', 'vendorBankDetails'));
+        return view('admin.settings.update_vendor_details')->with(compact('slug', 'userDetails', 'userStatus', 'vendorDetails', 'vendorBusinessDetails', 'businessStatus', 'vendorBankDetails', 'bankStatus'));
     }
 
     public function fixVendorStatus()
@@ -559,9 +615,10 @@ class AdminController extends Controller
     }
 
     /**
-     * Delete User Personal Notes
+     * Delete Vendor Notes
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
 
     public function deleteVendorNotes($slug = null)
@@ -573,15 +630,14 @@ class AdminController extends Controller
         elseif($slug == 'personal')
         {
             Admin::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
-            Vendor::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
         }
         elseif($slug == 'business')
         {
-            VendorsBusinessDetail::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+            VendorsBusinessDetail::where('id', Auth::guard('admin')->user()->vendor_id)->update(['notes' => null]);
         }
         elseif($slug == 'bank')
         {
-            VendorsBankDetail::where('id', Auth::guard('admin')->user()->id)->update(['notes' => null]);
+            VendorsBankDetail::where('id', Auth::guard('admin')->user()->vendor_id)->update(['notes' => null]);
         }
         else
         {
@@ -590,6 +646,13 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success_message', 'Notes removed successfully');
     }
+
+    /**
+     * Delete Vendor Images
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
 
     public function deleteVendorImages($slug = null)
     {
@@ -610,8 +673,6 @@ class AdminController extends Controller
             }
 
             Admin::where('id', Auth::guard('admin')->user()->id)->update(['image' => '']);
-
-            return redirect()->back()->with('success_message', 'Image removed successfully');
         }
         elseif($slug == 'business')
         {
@@ -626,16 +687,21 @@ class AdminController extends Controller
             }
 
             VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->update(['image' => '']);
-
-            return redirect()->back()->with('success_message', 'Image removed successfully');
         }
         else
         {
             return redirect('/admin/error/404')->with('error_message', 'Invalid data, please try again');
         }
 
-        return redirect()->back()->with('success_message', 'Notes removed successfully');
+        return redirect()->back()->with('success_message', 'Image removed successfully');
     }
+
+    /**
+     * Error Pages
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void1
+     */
 
     public function error($slug = null)
     {

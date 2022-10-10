@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('bank_swift_code');
             $table->string('bank_address');
             $table->text('notes')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

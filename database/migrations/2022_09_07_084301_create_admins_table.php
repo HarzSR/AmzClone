@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image');
-            $table->tinyInteger('status');
             $table->text('notes')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
