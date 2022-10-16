@@ -30,8 +30,6 @@
     <!-- Sweetalert Css -->
     <link href="{{ url('admin/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
 
-
-
     <!-- Colorpicker Css -->
     <link href="{{ url('admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" rel="stylesheet" />
 
