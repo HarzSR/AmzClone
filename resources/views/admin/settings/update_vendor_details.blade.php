@@ -472,8 +472,8 @@
                 </form>
             @elseif($slug == 'business')
                 @if($businessStatus == '')
-                                <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails" enctype="multipart/form-data">
-                    @csrf
+                    <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails" enctype="multipart/form-data">
+                        @csrf
                 @elseif($businessStatus == 'disabled')
                     <form action="#">
                 @endif
@@ -688,8 +688,12 @@
                     </div>
                 </form>
             @elseif($slug == 'bank')
-                <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails">
-                    @csrf
+                @if($businessStatus == '')
+                 <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails">
+                        @csrf
+                @elseif($businessStatus == 'disabled')
+                    <form action="#">
+                @endif
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="card">
