@@ -689,7 +689,7 @@
                 </form>
             @elseif($slug == 'bank')
                 @if($businessStatus == '')
-                 <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails">
+                    <form action="{{ url('/admin/vendor-update/' . $slug) }}" method="POST" id="updateVendorDetails" name="updateVendorDetails">
                         @csrf
                 @elseif($businessStatus == 'disabled')
                     <form action="#">
