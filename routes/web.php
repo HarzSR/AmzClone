@@ -48,6 +48,7 @@ Route::prefix('/admin')->group(function () {
 
         Route::match(['GET', 'POST'], 'vendor-update/{slug}', [AdminController::class, 'updateVendorDetails'])->name('Update Vendor Details');
         Route::get('fix-vendor', [AdminController::class, 'fixVendorStatus']);
+        Route::get('delete-vendor', [AdminController::class, 'deleteVendor']);
         Route::get('delete-vendor-notes/{slug}', [AdminController::class, 'deleteVendorNotes']);
         Route::get('delete-vendor-image/{slug}', [AdminController::class, 'deleteVendorImages']);
     });
